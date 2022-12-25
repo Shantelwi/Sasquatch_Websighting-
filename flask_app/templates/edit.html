@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sasquatch Websighting</title>
+        <link rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+            integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+            crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light justify-content-between p-2">
+            <h1 class="navbar-brand mb-0">Edit this Sighting {{ sighting.id }}</h1>
+            <div>
+                <a href="/sightings/home">Home</a>
+                <a href="/logout" class="btn btn-primary">Logout</a>
+            </div>
+        </nav>
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p class="error text-danger">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+        <div class="container">
+            <form action="/sightings/{{ sighting.id }}" method="post" class="flex-container with-border majority-width">
+                <div class="half-width col-4">
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" name="location" class="form-control"
+                            value="{{sighting.location}}">
+                    </div>
+                    <div class="form-group my-3">
+                        <label for="what_happened">What Happened:</label>
+                        <textarea class="form-control" name="what_happened"
+                            id="what_happened" type="text">{{ sighting.what_happened }}</textarea>
+                    </div>
+                </div>
+                <div class="half-width col-4">
+                    <div class="form-group my-3">
+                        <label for="date_of_sighting" class=" form-label">Date of Sighting:</label>
+                        <input type="date" class="form-control" id="date_of_sighting"
+                            name="date_of_sighting" value="{{sighting.date_of_sighting}}">
+                    </div>
+                    <div class="form-group my-3">
+                        <label for="num_of_sasquatches"># of Sasquatches:</label>
+                            <input type="number" name="num_of_sasquatches" class="form-control" value="{{sighting.num_of_sasquatches}}">
+                    </div>
+                    <input type="hidden" name="id" value="{{ sighting.id }}">
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn
+                            btn-primary
+                            my-4">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
